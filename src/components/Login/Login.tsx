@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
-import {Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+
+import { Link } from 'react-router-dom';
   
 const Login: FC = () => {
     return (
@@ -19,6 +21,10 @@ const Login: FC = () => {
                         <Button variant="primary" type="submit">
                             Log in
                         </Button>
+                        <Form.Text className="text-muted">
+                            Don't you have an account? 
+                            <Link to="/singup"> Sing Up</Link>
+                        </Form.Text>
                     </Form>
                 </Col>
             </Row>
