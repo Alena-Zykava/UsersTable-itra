@@ -4,7 +4,7 @@ export const usernames = [
         userName: "Vas",
         email: "vas@gmail.com",
         dataRegistration: "22.02.20",
-        lastData: "22.02.20",
+        lastLoginData: "22.02.20",
         status: "Unblock"
     },
     {
@@ -12,7 +12,7 @@ export const usernames = [
         userName: "Das",
         email: "das@gmail.com",
         dataRegistration: "22.02.20",
-        lastData: "22.02.20",
+        lastLoginData: "22.02.20",
         status: "Unblock"
     },
     {
@@ -20,7 +20,7 @@ export const usernames = [
         userName: "Gas",
         email: "gas@gmail.com",
         dataRegistration: "22.02.20",
-        lastData: "22.02.20",
+        lastLoginData: "22.02.20",
         status: "Unblock"
     }
 ]

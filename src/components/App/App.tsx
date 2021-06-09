@@ -3,7 +3,6 @@ import React from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import './App.scss';
-import Toolbar from '../Toolbar';
 import UsersTable from '../UsersTable';
 import Login from '../Login';
 import SingUp from '../SingUp';
@@ -19,8 +18,7 @@ function App() {
               <Route path='/singup'>
                   <SingUp />
               </Route>
-                <Route path='/'>
-                    <Toolbar />
+                <Route path='/'>                    
                     <UsersTable />
               </Route>
           </Switch>       

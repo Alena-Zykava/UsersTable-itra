@@ -1,12 +1,22 @@
 import React, { FC } from 'react';
 
 import UserItem from '../UserItem';
-import { usernames } from '../../constants/Usernames';
+import { IUser } from '../../models/User';
 
-const UserItems: FC = () => {
-    
-    const userItems = usernames.map((user) =>
-        <UserItem key={user.id} user={user} />)
+interface IUserItems {
+    users: IUser[],
+    allChecked: boolean
+}
+
+const UserItems: FC<IUserItems> = ({users, allChecked}) => {
+
+   
+    const userItems = users.map((user, index) =>
+        <UserItem
+            key={user._id}
+            user={user}
+            index={index}
+            allChecked={allChecked}/>)
 
     return (
         <tbody>

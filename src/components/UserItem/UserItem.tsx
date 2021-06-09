@@ -1,31 +1,44 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 
 import Form from 'react-bootstrap/Form';
 
+import { IUser } from '../../models/User';
+
 interface IUserState {
-    user: {
-        id: number,
-        userName: string,
-        email: string,
-        dataRegistration: string,
-        lastData: string,
-        status: string
-    }
+    user: IUser,
+    index: number,
+    allChecked: boolean
 }
 
-const UserItem: FC<IUserState> = ({user}) => {
-    console.log(user);
+const UserItem: FC<IUserState> = ({ user, index, allChecked }) => {
+    const [oneChecked, setOneChecked] = useState(allChecked);
+
+    useEffect(() => {
+        setOneChecked(allChecked);
+    }, [allChecked])
+    
+    useEffect(() => {
+        user.checked = oneChecked;
+    },[oneChecked, user])
+
+    const handlerChange = (e: any) => {
+        setOneChecked((s) => !s);
+    }
+
     return (
         <tr>
             <td>
-                <Form.Check/>
+                <Form.Check
+                    checked={oneChecked}
+                    onChange={handlerChange}
+                    name={user.userName} />
             </td>
-            <td>{ user.id }</td>
+            <td>{ index + 1 }</td>
             <td>{ user.userName }</td>
             <td>{ user.email }</td>
             <td>{ user.dataRegistration }</td>
-            <td>{ user.lastData }</td>
-            <td>{ user.status }</td>
+            <td>{ user.lastLoginData }</td>
+            <td>{ user.status ? 'unblock' : 'block' }</td>
         </tr>                
     )
 }

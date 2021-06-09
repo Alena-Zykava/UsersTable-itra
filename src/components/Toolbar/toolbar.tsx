@@ -1,12 +1,17 @@
 import React, { FC } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Container, Row, Col } from 'react-bootstrap';
-
 import { Link } from 'react-router-dom';
+
 
 import './Toolbar.scss';
 
-const Toolbar: FC = () => {
+interface IToolbar{
+    onDeleteUser: (e: any) => void,
+    onBlockUser: (e: any) => void
+}
+
+const Toolbar: FC<IToolbar> = ({onDeleteUser, onBlockUser}) => {
     return (
         <Container className='p-3'>
             <Row className='d-flex justify-content-between'>
@@ -14,10 +19,10 @@ const Toolbar: FC = () => {
                     <Button variant='success'>
                         <i className='bi bi-unlock-fill'></i>
                     </Button>
-                    <Button variant='warning'>
+                    <Button variant='warning' onClick={onBlockUser}>
                         <i className='bi bi-lock-fill'></i>
                     </Button>
-                    <Button variant='danger'>
+                    <Button variant='danger' onClick={onDeleteUser}>
                         <i className='bi bi-trash-fill'></i>
                     </Button>
                 </Col>
