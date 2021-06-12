@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useState, MouseEvent } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
@@ -24,11 +24,13 @@ const Login: FC = () => {
         });
     };
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         loginUser({ userName, password }).then((res) => {
             const data = res.data;
             auth.login(data.token, data.userId, data.userName);
+        }).catch(() => {
+            alert('Error login. User or password is not correct')
         })
     };
 
@@ -64,7 +66,7 @@ const Login: FC = () => {
                         </Button>
                         <Form.Text className="text-muted">
                             Don't you have an account? 
-                            <Link to="/singup"> Sing Up</Link>
+                            <Link to="/"> Sing Up</Link>
                         </Form.Text>
                     </Form>
                 </Col>

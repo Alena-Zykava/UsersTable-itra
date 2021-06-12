@@ -21,7 +21,7 @@ const UserItem: FC<IUserState> = ({ user, index, allChecked }) => {
         user.checked = oneChecked;
     },[oneChecked, user])
 
-    const handlerChange = (e: any) => {
+    const handlerChange = () => {
         setOneChecked((s) => !s);
     }
 

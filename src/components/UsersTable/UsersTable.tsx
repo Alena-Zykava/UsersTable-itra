@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, MouseEvent, Dispatch, SetStateAction } from 'react';
+import React, { FC, useEffect, useState, MouseEvent, Dispatch, SetStateAction, useContext } from 'react';
 import { Container, Row, Col, Table, Form } from 'react-bootstrap';
 
 import UserItems from '../UserItems';
@@ -6,11 +6,11 @@ import Toolbar from '../Toolbar';
 import { deleteUser, getUsers, updateUser } from '../../utilities/service';
 import { IUser } from '../../models/User';
 import PersonAccount from '../PersonAccount';
-//import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
-const getUsersData = (setUsers: Dispatch<SetStateAction<IUser[]>> ) => {
-    
-    getUsers().then((res) => {
+const getUsersData = (setUsers: Dispatch<SetStateAction<IUser[]>>, auth: any ) => {
+    const { token, logout } = auth;
+    getUsers(token).then((res) => {
         const data = res.data.map((user: IUser) => {
             return {
                 ...user,
@@ -19,19 +19,18 @@ const getUsersData = (setUsers: Dispatch<SetStateAction<IUser[]>> ) => {
         });
         setUsers(data);
     }).catch(() => {
-       
+        logout();
     })
 }
 
 const UsersTable: FC = () => {
     const [allChecked, setAllChecked] = useState(false);
     const [users, setUsers] = useState<IUser[]>([]);
-    //const auth = useContext(AuthContext);
-    //const { token } = auth;    
-   
-    useEffect(() => {
-        getUsersData(setUsers)
-    }, [])
+    const auth = useContext(AuthContext);
+       
+    useEffect(() => {        
+        getUsersData(setUsers, auth);
+    }, [auth])
     
     const getChangeUsersName = () => users.filter((user) => user.checked === true)
         .map(({ userName }) => {
@@ -42,16 +41,18 @@ const UsersTable: FC = () => {
         e.preventDefault();
         const usersName = getChangeUsersName();
         deleteUser({ usersName }).then((res) => {
-            getUsersData(setUsers);
+            getUsersData(setUsers, auth);
         })
     }
 
-    const onBlockUser = (e: MouseEvent<HTMLButtonElement>) => {
+    const onBlockUser = (
+        e: MouseEvent<HTMLButtonElement>,
+        status: boolean
+     ) => {
         e.preventDefault();
-        const usersName = getChangeUsersName();
-        console.log(usersName);
-        updateUser( {usersName} ).then((res) => {            
-            getUsersData(setUsers);
+        const usersName = getChangeUsersName();        
+        updateUser( {usersName, status} ).then((res) => {            
+            getUsersData(setUsers, auth);
         })
     }
 
@@ -89,7 +90,7 @@ const UsersTable: FC = () => {
                             />
                     </Table>
                 </Col>
-            </Row>
+            </Row>            
         </Container>        
     )
 }

@@ -27,7 +27,7 @@ function App() {
                                 <Route path='/login'>
                                     <Login />
                                 </Route>
-                                <Route path='/'>
+                                <Route path='/' exact>
                                     <SingUp />
                                 </Route>
                                 <Redirect to='/login' />

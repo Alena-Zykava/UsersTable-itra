@@ -1,6 +1,6 @@
-import { httpUsersTable } from './http-common';
+import { httpUsersTable, httpUsersTableAuth } from './http-common';
 
-export const getUsers = (userName) => httpUsersTable.get(`/users?userName=${userName}`);
+export const getUsers = (token) => httpUsersTableAuth({token}).get(`/users`);
 
 export const registration = (params) => httpUsersTable.post('/registration', params);
 

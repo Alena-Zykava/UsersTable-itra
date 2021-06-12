@@ -1,9 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, MouseEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 import { Link } from 'react-router-dom';
-import {registration} from '../../utilities/service'
+import { registration } from '../../utilities/service';
+
 
 const SingUp: FC = () => {
 
@@ -12,12 +13,11 @@ const SingUp: FC = () => {
         email: '',
         password:''
     });    
-    const [isError, setIsError] = useState(false);
     const history = useHistory();
 
     const { userName, password, email } = userData;
 
-    const handleSubmit = (e: any) => {        
+    const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {        
         e.preventDefault();
         
         const today = new Date().toLocaleDateString();
@@ -29,13 +29,9 @@ const SingUp: FC = () => {
             lastLoginData: today,
             status: true
         }).then((res) => {
-            setIsError(false);
-            console.log("Успешно", isError);
             history.push('/login');
         }).catch(() => {
-            console.log("ошибка", isError);
-            alert("ошибка регистрации");
-            setIsError(true);
+            alert('Error! A user with the same name already exists');
         })
         
     }
@@ -48,10 +44,10 @@ const SingUp: FC = () => {
             }
         });        
     }
-
+    
     return (
         <Container>
-            <Row>                
+            <Row>
                 <Col sm={4}>
                     <Form>
                     <Form.Group >
