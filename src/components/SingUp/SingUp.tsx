@@ -11,9 +11,7 @@ const SingUp: FC = () => {
         userName: '',
         email: '',
         password:''
-    });
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
+    });    
     const [isError, setIsError] = useState(false);
     const history = useHistory();
 
@@ -33,7 +31,7 @@ const SingUp: FC = () => {
         }).then((res) => {
             setIsError(false);
             console.log("Успешно", isError);
-            history.push('/');
+            history.push('/login');
         }).catch(() => {
             console.log("ошибка", isError);
             alert("ошибка регистрации");
@@ -84,7 +82,10 @@ const SingUp: FC = () => {
                                 value={password}
                                 onChange={handleChange}/>
                         </Form.Group>
-                        <Button variant="primary" type="submit" onClick={handleSubmit}>
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            onClick={handleSubmit}>
                             Sing Up
                         </Button>
                         <Form.Text className="text-muted">

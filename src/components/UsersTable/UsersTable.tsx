@@ -1,12 +1,15 @@
-import React, { FC, useEffect, useState, MouseEvent } from 'react';
+import React, { FC, useEffect, useState, MouseEvent, Dispatch, SetStateAction } from 'react';
 import { Container, Row, Col, Table, Form } from 'react-bootstrap';
 
 import UserItems from '../UserItems';
 import Toolbar from '../Toolbar';
 import { deleteUser, getUsers, updateUser } from '../../utilities/service';
 import { IUser } from '../../models/User';
+import PersonAccount from '../PersonAccount';
+//import { AuthContext } from '../../context/AuthContext';
 
-function getUsersData(setState: any) {
+const getUsersData = (setUsers: Dispatch<SetStateAction<IUser[]>> ) => {
+    
     getUsers().then((res) => {
         const data = res.data.map((user: IUser) => {
             return {
@@ -14,16 +17,20 @@ function getUsersData(setState: any) {
                 checked: false
             }
         });
-         setState(data);
+        setUsers(data);
+    }).catch(() => {
+       
     })
 }
 
 const UsersTable: FC = () => {
     const [allChecked, setAllChecked] = useState(false);
     const [users, setUsers] = useState<IUser[]>([]);
-
+    //const auth = useContext(AuthContext);
+    //const { token } = auth;    
+   
     useEffect(() => {
-        getUsersData(setUsers);
+        getUsersData(setUsers)
     }, [])
     
     const getChangeUsersName = () => users.filter((user) => user.checked === true)
@@ -54,7 +61,10 @@ const UsersTable: FC = () => {
 
     return (
         <Container className='p-3'>
-            <Toolbar onDeleteUser={onDeleteUser} onBlockUser={ onBlockUser }/>
+            <Row className='p-3 d-flex justify-content-between'>
+                <Toolbar onDeleteUser={onDeleteUser} onBlockUser={onBlockUser} />
+                <PersonAccount />
+            </Row>            
             <Row>
                 <Col>
                     <Table striped bordered hover>

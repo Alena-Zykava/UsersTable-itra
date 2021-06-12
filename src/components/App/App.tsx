@@ -1,29 +1,51 @@
 import React from 'react';
 
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
 
 import './App.scss';
 import UsersTable from '../UsersTable';
 import Login from '../Login';
 import SingUp from '../SingUp';
+import { useAuth } from '../../hooks/useAuth.hook';
+import { AuthContext } from '../../context/AuthContext';
+
 
 
 function App() {
+    const { login, logout, token, userId, userName } = useAuth();
+    const isAuthenticated = !!token;
+
     return (
-      <Router>            
-          <Switch>
-                <Route path='/login'>
-                    <Login />
-                </Route>                    
-              <Route path='/singup'>
-                  <SingUp />
-              </Route>
-                <Route path='/'>                    
-                    <UsersTable />
-              </Route>
-          </Switch>       
-      </Router>
-      
+        <AuthContext.Provider value={{
+            login, logout, token, userId, userName, isAuthenticated 
+        }}>
+            <Router>
+                {!isAuthenticated
+                    ? (
+                        <>
+                            <Switch>
+                                <Route path='/login'>
+                                    <Login />
+                                </Route>
+                                <Route path='/'>
+                                    <SingUp />
+                                </Route>
+                                <Redirect to='/login' />
+                            </Switch>
+                        </>
+                    )
+                    : (
+                        <>
+                            <Switch>                                
+                                <Route path='/users'>                    
+                                        <UsersTable />
+                                </Route>                                
+                                <Redirect to="/users" />
+                            </Switch>       
+                        </>
+                    )}                
+            </Router>
+        </AuthContext.Provider>   
   );
 }
 
