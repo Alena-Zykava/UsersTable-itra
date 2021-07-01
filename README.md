@@ -1,4 +1,19 @@
-# Getting Started with Create React App
+#Deploy
+
+https://users-table-itra.vercel.app/ 
+
+##Описание
+
+Приложение с регистрацией, авторизацией и аутентификацией пользователей и отрисовка таблицы зарегистрированных пользователей. Стэк: Back-end: node.js, express, mongoose, mongoDB. Front-end: React, TypeScript.
+
+ Back-end: https://github.com/Alena-Zykava/UsersTable-back
+
+Зарегистрируйтесь, войдите под своим пользователем. Вы увидите таблицу всех зарегестрированых пользователей. Их можно блакоровать, разбракоровать и удалять. При удалении или блакоровки себя, Вас выбросит на экран логина.
+
+
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
