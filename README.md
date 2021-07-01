@@ -1,8 +1,8 @@
-#Deploy
+# Deploy
 
 https://users-table-itra.vercel.app/ 
 
-##Описание
+## Описание
 
 Приложение с регистрацией, авторизацией и аутентификацией пользователей и отрисовка таблицы зарегистрированных пользователей. Стэк: Back-end: node.js, express, mongoose, mongoDB. Front-end: React, TypeScript.
 
